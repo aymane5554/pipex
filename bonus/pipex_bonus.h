@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:30:34 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/07 15:46:00 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:18:19 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	free_trpl_ptr(char ***ptr, int i);
 void	wait_for_all(void);
 void	close_all(int *fds, int *pfd);
 char	**garbage(void);
+void	creating_outfile(int fds[2], char **argv, int argc);
 #endif

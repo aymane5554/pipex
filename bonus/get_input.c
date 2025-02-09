@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 08:25:36 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/06 12:51:34 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 09:54:46 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ void	execute3(int fds[2], int pfd[2], char ***cmds_args, char **argv)
 	if (input)
 		write(pfd2[1], input, ft_strlen(input));
 	free(input);
+	get_next_line(-1);
 	close(pfd2[1]);
 	if (fork() == 0)
 	{
 		dup2(pfd2[0], 0);
-		close(pfd2[0]);
 		dup2(pfd[1], 1);
-		close(pfd[1]);
+		close_all(fds, pfd);
+		close(pfd2[0]);
+		close(pfd2[1]);
 		execve(cmds_args[0][0], cmds_args[0], NULL);
-		perror("execve\n");
 		exit(1);
 	}
 	close(pfd2[0]);

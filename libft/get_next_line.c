@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 17:25:00 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/01/29 15:49:38 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 09:51:05 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	buffer = malloc((long long)BUFFER_SIZE + 1);
-	if (buffer == NULL || read(fd, buffer, 0) == -1)
-		return (free(buffer), NULL);
+	if (fd == -1 || buffer == NULL || read(fd, buffer, 0) == -1)
+		return (free(buffer), free(last), NULL);
 	while (1)
 	{
 		if (last != NULL && isin(last, ft_strlen(last), '\n') > -1)

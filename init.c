@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/07 17:43:37 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:26:13 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	check_files(int argc, char **argv, int fds[2])
 		}
 	}
 	fds[0] = open(argv[1], O_RDONLY);
-	fds[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
 }
 
 int	find_path_var(char **env)
@@ -84,7 +83,6 @@ char	*check_commands(char **env, char *cmd)
 void	close_all(int *fds, int *pfd)
 {
 	close(fds[0]);
-	close(fds[1]);
 	close(pfd[0]);
 	close(pfd[1]);
 }

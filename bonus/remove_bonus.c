@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:20:48 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/07 15:45:52 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:20:23 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	remove_element(char	***cmds_args, int index)
 void	close_all(int *fds, int *pfd)
 {
 	close(fds[0]);
-	close(fds[1]);
 	close(pfd[0]);
 	close(pfd[1]);
 }
@@ -42,4 +41,12 @@ char	**garbage(void)
 	garbage_value = malloc(sizeof(char *));
 	*garbage_value = ft_strdup("#");
 	return (garbage_value);
+}
+
+void	creating_outfile(int fds[2], char **argv, int argc)
+{
+	if (fds[1] == 0)
+		fds[1] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0777);
+	else if (fds[1] == 1)
+		fds[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
 }

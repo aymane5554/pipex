@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/07 17:44:42 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:16:52 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	check_files(int argc, char **argv, int fds[2])
 		if (access(argv[argc - 1], F_OK) == 0
 			&& access(argv[argc - 1], W_OK) == -1)
 			return (perror(argv[argc - 1]), exit(1));
-		fds[0] = 0;
-		fds[1] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0777);
+		fds[0] = dup(0);
+		fds[1] = 0;
 		return ;
 	}
 	if (argc < 5)
@@ -38,7 +38,7 @@ void	check_files(int argc, char **argv, int fds[2])
 	if (access(argv[1], R_OK) == -1)
 		return (perror(argv[1]), exit(1));
 	fds[0] = open(argv[1], O_RDONLY);
-	fds[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
+	fds[1] = 1;
 }
 
 int	find_path_var(char **env)

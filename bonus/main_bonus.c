@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:21 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/07 16:48:31 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:20:55 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	execute2(int fds[2], int pfd[2], char ***cmds_args, int nth)
 		close(pfd2[0]);
 		close_all(fds, pfd);
 		execve(cmds_args[nth][0], cmds_args[nth], NULL);
-		perror("execve\n");
 		exit(1);
 	}
 	close(pfd2[0]);
@@ -89,7 +88,7 @@ void	execute(int fds[2], int pfd[2], char ***cmds_args, int nth)
 			dup2(pfd[1], 1);
 			close_all(fds, pfd);
 			execve(cmds_args[0][0], cmds_args[0], NULL);
-			return (perror("execve"), epilogue(fds, pfd, cmds_args), exit(1));
+			return (epilogue(fds, pfd, cmds_args), exit(1));
 		}
 	}
 	else if (nth == cmds_number(cmds_args) - 1)
@@ -100,8 +99,9 @@ void	execute(int fds[2], int pfd[2], char ***cmds_args, int nth)
 			dup2(pfd[0], 0);
 			dup2(fds[1], 1);
 			close_all(fds, pfd);
+			close(fds[1]);
 			execve(cmds_args[nth][0], cmds_args[nth], NULL);
-			return (perror("execve"), epilogue(fds, pfd, cmds_args), exit(1));
+			return (epilogue(fds, pfd, cmds_args), exit(1));
 		}
 	}
 }
@@ -129,8 +129,8 @@ int	main(int argc, char **argv, char **env)
 			execute2(fds, pfd, cmds_args, i);
 		i++;
 	}
+	creating_outfile(fds, argv, argc);
 	if (check(i, argv, env, cmds_args) != 0)
 		execute(fds, pfd, cmds_args, i);
-	wait_for_all();
-	return (epilogue(fds, pfd, cmds_args), 0);
+	return (wait_for_all(), epilogue(fds, pfd, cmds_args), 0);
 }
