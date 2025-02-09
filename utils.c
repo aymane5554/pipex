@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 10:55:56 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 15:26:12 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:50:17 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	pop_back(t_list *head)
 
 void	nop(void *nothing)
 {
-	nothing = nothing;
+	nothing++;
 }
 
 int	valid_quotes(char	*str)
