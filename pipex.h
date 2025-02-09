@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:41:10 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 11:20:58 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:45:17 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ char	*check_commands(char **env, char *cmd);
 void	free_dbl_ptr(char **ptr, int i);
 int		valid_quotes(char	*str);
 void	free_trpl_ptr(char ***ptr, int i);
-void	close_all(int *fds, int *pfd);
+void	close_all(int fds[2], int pfd[2]);
 #endif

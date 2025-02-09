@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 10:26:13 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:45:17 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*check_commands(char **env, char *cmd)
 	return (free(paths), perror(cmd), NULL);
 }
 
-void	close_all(int *fds, int *pfd)
+void	close_all(int fds[2], int pfd[2])
 {
 	close(fds[0]);
 	close(pfd[0]);

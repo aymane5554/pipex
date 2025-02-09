@@ -19,11 +19,15 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
+objects:$(OBJS) $(GNLOBJ)
+
 bonus : $(BONUS_OBJS) $(GNLOBJ)
-	$(AR) $(NAME) $^
+	@$(AR) $(NAME) $^
+	@echo "archiving..."
 
 $(NAME): $(OBJS) $(GNLOBJ)
-	$(AR) $@ $^
+	@$(AR) $@ $^
+	@echo "archiving..."
 
 get_next%.o : get_next%.c get_next_line.h
 	$(CC) $(CFLAGS) -c $< -o $@
