@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 15:28:35 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 21:40:43 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ char	*check_commands(char **env, char *cmd)
 	char	*file_path;
 	char	*tmp;
 
-	if (access(cmd, X_OK) == 0)
+	if ((access(cmd, X_OK) == 0 && ft_strchr(cmd, '/') != NULL) || cmd == NULL)
 		return (ft_strdup(cmd));
-	if (ft_strchr(cmd, '/') != NULL)
+	if (ft_strchr(cmd, '/') != NULL && access(cmd, X_OK) != 0)
 		return (perror(cmd), NULL);
 	if (find_path_var(env) == -1)
 		return (perror(cmd), NULL);
