@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:41:10 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/07 13:32:43 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 11:20:58 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 # include "libft.h"
 
