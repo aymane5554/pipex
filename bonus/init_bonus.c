@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 10:16:52 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:28:35 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	allocate(char ****cmds_args, char is_here, int argc, char **argv)
 	int	i;
 
 	i = 0;
-	if (ft_strncmp("here_doc", argv[1], 8) == 0)
+	if (is_here == 0)
 	{
 		*cmds_args = malloc(((argc - 4) + 1) * sizeof(char **));
 		while (i < argc - 4)
