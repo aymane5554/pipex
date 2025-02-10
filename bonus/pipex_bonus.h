@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:30:34 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 11:42:38 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:29:32 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	check_argc(int argc);
 char	*get_input(char	**argv);
 void	execute3(int fds[2], int pfd[2], char ***cmds_args, char **argv);
 int		cmds_number(char ***cmds_args);
-void	remove_element(char	***cmds_args, int index);
 void	allocate(char ****cmds_args, char is_here, int argc, char **argv);
 void	check_files(int argc, char **argv, int fds[2]);
 int		find_path_var(char **env);

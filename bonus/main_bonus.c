@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:21 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 11:48:29 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:29:24 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	check(int nth, char **argv, char **env, char ***cmds_args)
 	else
 		offset = 2;
 	if (valid_quotes(argv[offset + nth]) == 0)
-		return (cmds_args[nth] = NULL,
-			remove_element(cmds_args, nth), perror("Invalid quotes"), 0);
+		return (perror("Invalid quotes"), 0);
 	cmds_args[nth] = ft_split(argv[nth + offset], ' ');
 	if (cmds_args[nth][0] == NULL)
 		return (perror("' ' is not a command"), 0);
@@ -51,8 +50,7 @@ int	check(int nth, char **argv, char **env, char ***cmds_args)
 	if (cmds_args[nth][0] == NULL)
 	{
 		tmp[0] = tmp1;
-		return (free_dbl_ptr(tmp, 0), cmds_args[nth] = NULL,
-			remove_element(cmds_args, nth), 0);
+		return (0);
 	}
 	return (free(tmp1), 1);
 }
