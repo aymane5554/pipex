@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:21 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 15:00:12 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:15:07 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,23 @@ void	epilogue(int fds[2], int pfd[2], char **cmds_args[2])
 
 int	check(int nth, char **argv, char **env, char **cmds_args[2])
 {
-	char	*tmp;
+	char	**tmp;
+	char	*tmp1;
 
 	if (valid_quotes(argv[2 + nth]) == 0)
 		return (cmds_args[nth] = NULL, perror("Invalid quotes"), 0);
 	cmds_args[nth] = ft_split(argv[2 + nth], ' ');
 	if (cmds_args[nth][0] == NULL)
 		return (perror("' ' is not a command"), 0);
-	tmp = cmds_args[nth][0];
+	tmp = cmds_args[nth];
+	tmp1 = cmds_args[nth][0];
 	cmds_args[nth][0] = check_commands(env, cmds_args[nth][0]);
-	if (cmds_args[nth] == NULL)
-		return (free(tmp), 0);
 	if (cmds_args[nth][0] == NULL)
-		return (free(tmp), 0);
-	free(tmp);
+	{
+		tmp[0] = tmp1;
+		return (free_dbl_ptr(tmp, 0), cmds_args[nth] = NULL, 0);
+	}
+	free(tmp1);
 	return (1);
 }
 

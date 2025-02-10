@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:20:48 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 10:20:23 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:37:33 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ void	close_all(int *fds, int *pfd)
 	close(fds[0]);
 	close(pfd[0]);
 	close(pfd[1]);
-}
-
-char	**garbage(void)
-{
-	char	**garbage_value;
-
-	garbage_value = malloc(sizeof(char *));
-	*garbage_value = ft_strdup("#");
-	return (garbage_value);
 }
 
 void	creating_outfile(int fds[2], char **argv, int argc)
