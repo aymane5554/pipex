@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:21 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 11:15:07 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:33:57 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	main(int argc, char **argv, char **env)
 	close(fds[0]);
 	close(pfd[1]);
 	fds[1] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (fds[1] == -1)
+		return (perror(argv[argc - 1]), exit(1), 0);
 	if (check(1, argv, env, cmds_args) != 0)
 		execute(fds, pfd, cmds_args, 1);
 	while (wait(&status) >= 0)

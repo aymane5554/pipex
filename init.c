@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/09 21:33:02 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:29:24 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	check_files(int argc, char **argv, int fds[2])
 	{
 		perror("\e[31mThe program should be executed as follows:\n"
 			"\t./pipex file1 cmd1 cmd2 file2\n");
-		exit(1);
+		return ;
 	}
 	if (access(argv[1], R_OK) == -1)
 	{
 		perror(argv[1]);
-		exit(1);
+		return ;
 	}
 	if (access(argv[argc - 1], F_OK) == 0)
 	{
 		if (access(argv[argc - 1], W_OK) == -1)
 		{
 			perror(argv[argc - 1]);
-			exit(1);
+			return ;
 		}
 	}
 	fds[0] = open(argv[1], O_RDONLY);
