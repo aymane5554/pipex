@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:21 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 18:29:24 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:46:31 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	main(int argc, char **argv, char **env)
 			execute2(fds, pfd, cmds_args, i);
 		i++;
 	}
-	creating_outfile(fds, argv, argc);
+	creating_outfile(fds, pfd, argv[argc - 1], cmds_args);
 	if (check(i, argv, env, cmds_args) != 0)
 		execute(fds, pfd, cmds_args, i);
 	return (wait_for_all(), epilogue(fds, pfd, cmds_args), 0);

@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:21 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 21:33:57 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:36:45 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	epilogue(int fds[2], int pfd[2], char **cmds_args[2])
 {
-	close(fds[0]);
-	close(fds[1]);
+	if (fds[0] != -1)
+		close(fds[0]);
+	if (fds[1] != -1)
+		close(fds[1]);
 	close(pfd[0]);
 	close(pfd[1]);
 	if (cmds_args[0])
@@ -80,6 +82,8 @@ int	main(int argc, char **argv, char **env)
 	int		status;
 	int		pfd[2];
 
+	cmds_args[0] = NULL;
+	cmds_args[1] = NULL;
 	check_files(argc, argv, fds);
 	pipe(pfd);
 	if (check(0, argv, env, cmds_args) != 0)
@@ -88,7 +92,8 @@ int	main(int argc, char **argv, char **env)
 	close(pfd[1]);
 	fds[1] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fds[1] == -1)
-		return (perror(argv[argc - 1]), exit(1), 0);
+		return (perror(argv[argc - 1]),
+			epilogue(fds, pfd, cmds_args), exit(1), 0);
 	if (check(1, argv, env, cmds_args) != 0)
 		execute(fds, pfd, cmds_args, 1);
 	while (wait(&status) >= 0)

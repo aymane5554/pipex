@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:30:34 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 18:29:32 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:46:00 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		valid_quotes(char	*str);
 void	free_trpl_ptr(char ***ptr, int i);
 void	wait_for_all(void);
 void	close_all(int *fds, int *pfd);
-void	creating_outfile(int fds[2], char **argv, int argc);
+void	creating_outfile(int fds[2], int pfd[2],
+			char *filename, char ***cmds_args);
 void	epilogue(int fds[2], int pfd[2], char ***cmds_args);
 #endif
