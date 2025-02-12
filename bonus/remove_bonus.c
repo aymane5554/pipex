@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:20:48 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/11 10:51:26 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:00:04 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	close_all(int *fds, int *pfd)
 	close(pfd[1]);
 }
 
-void	creating_outfile(int fds[2], int pfd[2],
+void	creating_outfile(int fds[2],
 		char *filename, char ***cmds_args)
 {
 	if (fds[1] == 0)
@@ -30,7 +30,13 @@ void	creating_outfile(int fds[2], int pfd[2],
 	{
 		perror(filename);
 		cmds_args[cmds_number(cmds_args) - 1] = NULL;
-		epilogue(fds, pfd, cmds_args);
+		epilogue(fds, cmds_args);
 		exit(1);
 	}
+}
+
+void	close_pipe(int pfd[2])
+{
+	close(pfd[0]);
+	close(pfd[1]);
 }

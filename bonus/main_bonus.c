@@ -12,15 +12,13 @@
 
 #include "pipex_bonus.h"
 
-void	epilogue(int fds[2], int pfd[2], char ***cmds_args)
+void	epilogue(int fds[2], char ***cmds_args)
 {
 	int	i;
 
 	i = 0;
 	close(fds[0]);
 	close(fds[1]);
-	close(pfd[0]);
-	close(pfd[1]);
 	while (cmds_args[i] != NULL)
 	{
 		free_dbl_ptr(cmds_args[i], 0);
@@ -70,7 +68,7 @@ void	execute2(int fds[2], int pfd[2], char ***cmds_args, int nth)
 		close(pfd2[0]);
 		close_all(fds, pfd);
 		execve(cmds_args[nth][0], cmds_args[nth], NULL);
-		epilogue(fds, pfd, cmds_args);
+		epilogue(fds, cmds_args);
 		exit(1);
 	}
 	close(pfd2[0]);
@@ -86,7 +84,7 @@ void	execute(int fds[2], int pfd[2], char ***cmds_args, int nth)
 			dup2(pfd[1], 1);
 			close_all(fds, pfd);
 			execve(cmds_args[0][0], cmds_args[0], NULL);
-			return (epilogue(fds, pfd, cmds_args), exit(1));
+			return (epilogue(fds, cmds_args), exit(1));
 		}
 	}
 	else if (nth == cmds_number(cmds_args) - 1)
@@ -99,7 +97,7 @@ void	execute(int fds[2], int pfd[2], char ***cmds_args, int nth)
 			close_all(fds, pfd);
 			close(fds[1]);
 			execve(cmds_args[nth][0], cmds_args[nth], NULL);
-			return (epilogue(fds, pfd, cmds_args), exit(1));
+			return (epilogue(fds, cmds_args), exit(1));
 		}
 	}
 }
@@ -127,8 +125,8 @@ int	main(int argc, char **argv, char **env)
 			execute2(fds, pfd, cmds_args, i);
 		i++;
 	}
-	creating_outfile(fds, pfd, argv[argc - 1], cmds_args);
+	creating_outfile(fds, argv[argc - 1], cmds_args);
 	if (check(i, argv, env, cmds_args) != 0)
 		execute(fds, pfd, cmds_args, i);
-	return (wait_for_all(), epilogue(fds, pfd, cmds_args), 0);
+	return (close_pipe(pfd), wait_for_all(), epilogue(fds, cmds_args), 0);
 }

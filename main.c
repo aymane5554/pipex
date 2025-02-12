@@ -12,14 +12,12 @@
 
 #include "pipex.h"
 
-void	epilogue(int fds[2], int pfd[2], char **cmds_args[2])
+void	epilogue(int fds[2], char **cmds_args[2])
 {
 	if (fds[0] != -1)
 		close(fds[0]);
 	if (fds[1] != -1)
 		close(fds[1]);
-	close(pfd[0]);
-	close(pfd[1]);
 	if (cmds_args[0])
 		free_dbl_ptr(cmds_args[0], 0);
 	if (cmds_args[1])
@@ -58,7 +56,7 @@ void	execute(int fds[2], int pfd[2], char **cmds_args[2], int nth)
 			dup2(pfd[1], 1);
 			close_all(fds, pfd);
 			execve(cmds_args[0][0], cmds_args[0], NULL);
-			return (epilogue(fds, pfd, cmds_args), exit(1));
+			return (epilogue(fds, cmds_args), exit(1));
 		}
 	}
 	else if (nth == 1)
@@ -70,7 +68,7 @@ void	execute(int fds[2], int pfd[2], char **cmds_args[2], int nth)
 			close_all(fds, pfd);
 			close(fds[1]);
 			execve(cmds_args[1][0], cmds_args[1], NULL);
-			return (epilogue(fds, pfd, cmds_args), exit(1));
+			return (epilogue(fds, cmds_args), exit(1));
 		}
 	}
 }
@@ -93,10 +91,12 @@ int	main(int argc, char **argv, char **env)
 	fds[1] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fds[1] == -1)
 		return (perror(argv[argc - 1]),
-			epilogue(fds, pfd, cmds_args), exit(1), 0);
+			epilogue(fds, cmds_args), exit(1), 0);
 	if (check(1, argv, env, cmds_args) != 0)
 		execute(fds, pfd, cmds_args, 1);
+	close(pfd[0]);
+	close(pfd[1]);
 	while (wait(&status) >= 0)
 		continue ;
-	return (epilogue(fds, pfd, cmds_args), 0);
+	return (epilogue(fds, cmds_args), 0);
 }
