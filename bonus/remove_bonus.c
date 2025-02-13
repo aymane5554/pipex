@@ -24,9 +24,9 @@ int	creating_outfile(char *filename, char c, char ***cmds_args, int pfd[2])
 	int	fd;
 
 	fd = 0;
-	if (c == 'h')
+	if (c == 0)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
-	else if (c == 'n')
+	else if (c != 0)
 		fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd == -1)
 	{

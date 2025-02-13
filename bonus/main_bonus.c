@@ -12,6 +12,8 @@
 
 #include "pipex_bonus.h"
 
+static char	**g_av;
+
 void	epilogue(char ***cmds_args)
 {
 	int	i;
@@ -72,7 +74,7 @@ void	execute2(int pfd[2], char ***cmds_args, int nth)
 	close(pfd2[0]);
 }
 
-void	execute(int pfd[2], char ***cmds_args, char *filename, int nth)
+void	execute(int pfd[], char ***cmds_args, char *filename, int nth)
 {
 	int	fd;
 
@@ -92,9 +94,9 @@ void	execute(int pfd[2], char ***cmds_args, char *filename, int nth)
 	close(pfd[1]);
 	if (fork() == 0)
 	{
-		fd = creating_outfile(filename, 'n', cmds_args, pfd);
-		dup2(pfd[0], 0);
-		dup2(fd, 1);
+		fd = creating_outfile(filename,
+				ft_strncmp("here_doc", g_av[1], 8), cmds_args, pfd);
+		(dup2(pfd[0], 0), dup2(fd, 1));
 		close_all(fd, pfd);
 		execve(cmds_args[nth][0], cmds_args[nth], NULL);
 		return (epilogue(cmds_args), exit(1));
@@ -108,6 +110,7 @@ int	main(int argc, char **argv, char **env)
 	int		i;
 
 	i = 1;
+	g_av = argv;
 	check_files(argc, argv);
 	allocate(&cmds_args, ft_strncmp("here_doc", argv[1], 8), argc, argv);
 	pipe(pfd);
