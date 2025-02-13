@@ -80,7 +80,7 @@ void	execute(int pfd[2], char ***cmds_args, char *filename, int nth)
 	{
 		if (fork() == 0)
 		{
-			fd = open_input_file(filename, cmds_args);
+			fd = open_input_file(filename, cmds_args, pfd);
 			dup2(fd, 0);
 			dup2(pfd[1], 1);
 			close_all(fd, pfd);
@@ -92,7 +92,7 @@ void	execute(int pfd[2], char ***cmds_args, char *filename, int nth)
 	close(pfd[1]);
 	if (fork() == 0)
 	{
-		fd = creating_outfile(filename, 'n', cmds_args);
+		fd = creating_outfile(filename, 'n', cmds_args, pfd);
 		dup2(pfd[0], 0);
 		dup2(fd, 1);
 		close_all(fd, pfd);

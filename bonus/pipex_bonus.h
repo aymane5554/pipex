@@ -34,9 +34,9 @@ int		valid_quotes(char	*str);
 void	free_trpl_ptr(char ***ptr, int i);
 void	wait_for_all(void);
 void	close_all(int fd, int *pfd);
-int		creating_outfile(
-			char *filename, char c, char ***cmds_args);
+int		creating_outfile(char *filename,
+			char c, char ***cmds_args, int pfd[2]);
 void	epilogue(char ***cmds_args);
 void	close_pipe(int pfd[2]);
-int		open_input_file(char *filename, char ***cmds_args);
+int		open_input_file(char *filename, char ***cmds_args, int pfd[2]);
 #endif

@@ -19,7 +19,7 @@ void	close_all(int fd, int *pfd)
 	close(pfd[1]);
 }
 
-int	creating_outfile(char *filename, char c, char ***cmds_args)
+int	creating_outfile(char *filename, char c, char ***cmds_args, int pfd[2])
 {
 	int	fd;
 
@@ -31,14 +31,14 @@ int	creating_outfile(char *filename, char c, char ***cmds_args)
 	if (fd == -1)
 	{
 		perror(filename);
-		cmds_args[cmds_number(cmds_args) - 1] = NULL;
 		epilogue(cmds_args);
+		close_pipe(pfd);
 		exit(1);
 	}
 	return (fd);
 }
 
-int	open_input_file(char *filename, char ***cmds_args)
+int	open_input_file(char *filename, char ***cmds_args, int pfd[2])
 {
 	int	fd;
 
@@ -48,6 +48,7 @@ int	open_input_file(char *filename, char ***cmds_args)
 		perror(filename);
 		free_dbl_ptr(cmds_args[0], 0);
 		free(cmds_args);
+		close_pipe(pfd);
 		exit(1);
 		return (-1);
 	}
