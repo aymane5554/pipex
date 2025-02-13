@@ -6,13 +6,13 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 21:29:24 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:05:22 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_files(int argc, char **argv, int fds[2])
+void	check_args(int argc)
 {
 	if (argc != 5)
 	{
@@ -20,20 +20,6 @@ void	check_files(int argc, char **argv, int fds[2])
 			"\t./pipex file1 cmd1 cmd2 file2\n");
 		return ;
 	}
-	if (access(argv[1], R_OK) == -1)
-	{
-		perror(argv[1]);
-		return ;
-	}
-	if (access(argv[argc - 1], F_OK) == 0)
-	{
-		if (access(argv[argc - 1], W_OK) == -1)
-		{
-			perror(argv[argc - 1]);
-			return ;
-		}
-	}
-	fds[0] = open(argv[1], O_RDONLY);
 }
 
 int	find_path_var(char **env)
@@ -80,9 +66,9 @@ char	*check_commands(char **env, char *cmd)
 	return (free(paths), perror(cmd), NULL);
 }
 
-void	close_all(int fds[2], int pfd[2])
+void	close_all(int fd, int pfd[2])
 {
-	close(fds[0]);
+	close(fd);
 	close(pfd[0]);
 	close(pfd[1]);
 }

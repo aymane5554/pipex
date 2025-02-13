@@ -1,9 +1,9 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c init.c
+SRCS = main.c init.c open.c
 SHSRCS = utils.c
 SHOBJS = $(SHSRCS:%.c=%.o)
-BSRCS= bonus/main_bonus.c bonus/init_bonus.c bonus/get_input.c bonus/remove_bonus.c
+BSRCS= bonus/main_bonus.c bonus/init_bonus.c bonus/get_input_bonus.c bonus/remove_bonus.c
 OBJS = $(SRCS:%.c=%.o)
 BOBJS= $(BSRCS:bonus/%.c=bonus/%.o)
 LIBFT_SRCS = libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c libft/ft_isalnum.c libft/ft_isalpha.c \

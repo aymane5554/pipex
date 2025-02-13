@@ -12,7 +12,7 @@
 
 #include "pipex_bonus.h"
 
-void	check_files(int argc, char **argv, int fds[2])
+void	check_files(int argc, char **argv)
 {
 	check_argc(argc);
 	if (ft_strncmp("here_doc", argv[1], 8) == 0)
@@ -23,8 +23,6 @@ void	check_files(int argc, char **argv, int fds[2])
 		if (access(argv[argc - 1], F_OK) == 0
 			&& access(argv[argc - 1], W_OK) == -1)
 			return (perror(argv[argc - 1]), exit(1));
-		fds[0] = dup(0);
-		fds[1] = 0;
 		return ;
 	}
 	if (argc < 5)
@@ -35,10 +33,6 @@ void	check_files(int argc, char **argv, int fds[2])
 	}
 	if (access(argv[argc - 1], F_OK) == 0 && access(argv[argc - 1], W_OK) == -1)
 		return (perror(argv[argc - 1]), exit(1));
-	if (access(argv[1], R_OK) == -1)
-		return (perror(argv[1]), exit(1));
-	fds[0] = open(argv[1], O_RDONLY);
-	fds[1] = 1;
 }
 
 int	find_path_var(char **env)

@@ -50,7 +50,7 @@ char	*get_input(char	**argv)
 	return (input);
 }
 
-void	execute3(int fds[2], int pfd[2], char ***cmds_args, char **argv)
+void	execute3(int pfd[2], char ***cmds_args, char **argv)
 {
 	int		pfd2[2];
 	char	*input;
@@ -66,11 +66,11 @@ void	execute3(int fds[2], int pfd[2], char ***cmds_args, char **argv)
 	{
 		dup2(pfd2[0], 0);
 		dup2(pfd[1], 1);
-		close_all(fds, pfd);
+		close_pipe(pfd);
 		close(pfd2[0]);
 		close(pfd2[1]);
 		execve(cmds_args[0][0], cmds_args[0], NULL);
-		epilogue(fds, cmds_args);
+		epilogue(cmds_args);
 		exit(1);
 	}
 	close(pfd2[0]);
