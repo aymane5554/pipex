@@ -70,6 +70,7 @@ void	execute3(int pfd[2], char ***cmds_args, char **argv)
 		close(pfd2[0]);
 		close(pfd2[1]);
 		execve(cmds_args[0][0], cmds_args[0], NULL);
+		perror(cmds_args[nth][0]);
 		epilogue(cmds_args);
 		exit(1);
 	}

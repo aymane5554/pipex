@@ -69,6 +69,7 @@ void	execute2(int pfd[2], char ***cmds_args, int nth)
 		close(pfd2[0]);
 		close_pipe(pfd);
 		execve(cmds_args[nth][0], cmds_args[nth], NULL);
+		perror(cmds_args[nth][0]);
 		epilogue(cmds_args);
 		exit(1);
 	}
@@ -88,7 +89,7 @@ void	execute(int pfd[], char ***cmds_args, char *filename, int nth)
 			dup2(pfd[1], 1);
 			close_all(fd, pfd);
 			execve(cmds_args[0][0], cmds_args[0], NULL);
-			return (epilogue(cmds_args), exit(1));
+			return (perror(cmds_args[nth][0]), epilogue(cmds_args), exit(1));
 		}
 		return ;
 	}
@@ -100,7 +101,7 @@ void	execute(int pfd[], char ***cmds_args, char *filename, int nth)
 		(dup2(pfd[0], 0), dup2(fd, 1));
 		close_all(fd, pfd);
 		execve(cmds_args[nth][0], cmds_args[nth], NULL);
-		return (epilogue(cmds_args), exit(1));
+		return (perror(cmds_args[nth][0]), epilogue(cmds_args), exit(1));
 	}
 }
 
