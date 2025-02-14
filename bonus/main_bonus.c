@@ -39,7 +39,7 @@ int	check(int nth, char **argv, char **env, char ***cmds_args)
 		offset = 2;
 	if (valid_quotes(argv[offset + nth]) == 0)
 		return (perror("Invalid quotes"),
-			cmds_args[nth] = ft_split("8th retry", ' '), 0);
+			cmds_args[nth] = ft_split("8th attempt", ' '), 0);
 	cmds_args[nth] = ft_split(argv[nth + offset], ' ');
 	if (cmds_args[nth][0] == NULL)
 		return (perror("' ' is not a command"), 0);
