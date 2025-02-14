@@ -28,7 +28,7 @@ int	check(int nth, char **argv, char **env, char **cmds_args[2])
 	if (valid_quotes(argv[2 + nth]) == 0)
 		return (cmds_args[nth] = NULL, perror("Invalid quotes"), 0);
 	cmds_args[nth] = ft_split(argv[2 + nth], ' ');
-	if (cmds_args[nth][0] == NULL)
+	if (cmds_args[nth][0] == NULL || cmds_args[nth][0][0] == '\0')
 		return (perror("' ' is not a command"), 0);
 	tmp = cmds_args[nth];
 	tmp1 = cmds_args[nth][0];
