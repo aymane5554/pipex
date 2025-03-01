@@ -1,3 +1,3 @@
 <center><h1> minipipe </h1></center><br>
-
-<center> this program memics the behavior of the pipe "|" in unix</center>
+<br>
+<center><h2>this program memics the behavior of the pipe "|" in unix</h2></center>
