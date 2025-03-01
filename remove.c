@@ -1,24 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open.c                                             :+:      :+:    :+:   */
+/*   remove.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 11:46:08 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/13 11:59:14 by ayel-arr         ###   ########.fr       */
+/*   Created: 2025/02/06 13:20:48 by ayel-arr          #+#    #+#             */
+/*   Updated: 2025/03/01 09:49:48 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	close_pipe(int pfd[2])
+void	close_all(int fd, int *pfd)
 {
+	close(fd);
 	close(pfd[0]);
 	close(pfd[1]);
 }
 
-int	open_input_file(char *filename, char **cmds_args[2], int pfd[2])
+int	creating_outfile(char *filename, char c, char ***cmds_args, int pfd[2])
+{
+	int	fd;
+
+	fd = 0;
+	if (c == 0)
+		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	else if (c != 0)
+		fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0777);
+	if (fd == -1)
+	{
+		perror(filename);
+		epilogue(cmds_args);
+		close_pipe(pfd);
+		exit(1);
+	}
+	return (fd);
+}
+
+int	open_input_file(char *filename, char ***cmds_args, int pfd[2])
 {
 	int	fd;
 
@@ -26,7 +46,8 @@ int	open_input_file(char *filename, char **cmds_args[2], int pfd[2])
 	if (fd == -1)
 	{
 		perror(filename);
-		epilogue(cmds_args);
+		free_dbl_ptr(cmds_args[0], 0);
+		free(cmds_args);
 		close_pipe(pfd);
 		exit(1);
 		return (-1);
@@ -34,24 +55,8 @@ int	open_input_file(char *filename, char **cmds_args[2], int pfd[2])
 	return (fd);
 }
 
-int	open_output_file(char *filename, char **cmds_args[2], int pfd[2])
+void	close_pipe(int pfd[2])
 {
-	int	fd;
-
-	if (access(filename, F_OK) == 0)
-	{
-		if (access(filename, W_OK) == -1)
-		{
-			perror(filename);
-			epilogue(cmds_args);
-			close_pipe(pfd);
-			exit(1);
-			return (-1);
-		}
-	}
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (fd == -1)
-		return (perror(filename),
-			epilogue(cmds_args), exit(1), -1);
-	return (fd);
+	close(pfd[0]);
+	close(pfd[1]);
 }

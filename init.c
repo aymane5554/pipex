@@ -6,15 +6,26 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/13 12:05:22 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/03/01 09:49:18 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_args(int argc)
+void	check_files(int argc, char **argv)
 {
-	if (argc != 5)
+	check_argc(argc);
+	if (ft_strncmp("here_doc", argv[1], 8) == 0)
+	{
+		if (argc < 6)
+			return (perror("\e[31mThe program should be executed as follows:\n"
+					"\t./pipex_bonus here_doc LIMITER cmd cmd1 file\n"), exit(1));
+		if (access(argv[argc - 1], F_OK) == 0
+			&& access(argv[argc - 1], W_OK) == -1)
+			return (perror(argv[argc - 1]), exit(1));
+		return ;
+	}
+	if (argc < 5)
 	{
 		perror("\e[31mThe program should be executed as follows:\n"
 			"\t./pipex file1 cmd1 cmd2 file2\n");
@@ -66,9 +77,39 @@ char	*check_commands(char **env, char *cmd)
 	return (free(paths), perror(cmd), NULL);
 }
 
-void	close_all(int fd, int pfd[2])
+void	allocate(char ****cmds_args, char is_here, int argc, char **argv)
 {
-	close(fd);
-	close(pfd[0]);
-	close(pfd[1]);
+	int	i;
+
+	i = 0;
+	if (is_here == 0)
+	{
+		*cmds_args = malloc(((argc - 4) + 1) * sizeof(char **));
+		while (i < argc - 4)
+		{
+			(*cmds_args)[i] = argv;
+			i++;
+		}
+		(*cmds_args)[argc - 4] = NULL;
+	}
+	else
+	{
+		*cmds_args = malloc(((argc - 3) + 1) * sizeof(char **));
+		while (i < argc - 3)
+		{
+			(*cmds_args)[i] = argv;
+			i++;
+		}
+		(*cmds_args)[argc - 3] = NULL;
+	}
+}
+
+int	cmds_number(char ***cmds_args)
+{
+	int	i;
+
+	i = 0;
+	while (cmds_args[i])
+		i++;
+	return (i);
 }

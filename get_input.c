@@ -6,11 +6,11 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 08:25:36 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/02/10 11:42:52 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/03/01 09:49:29 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 int	cmp(char *line, char *limiter)
 {

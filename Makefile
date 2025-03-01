@@ -1,11 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c init.c open.c
-SHSRCS = utils.c
-SHOBJS = $(SHSRCS:%.c=%.o)
-BSRCS= bonus/main_bonus.c bonus/init_bonus.c bonus/get_input_bonus.c bonus/remove_bonus.c
+SRCS = main.c init.c get_input.c remove.c utils.c
 OBJS = $(SRCS:%.c=%.o)
-BOBJS= $(BSRCS:bonus/%.c=bonus/%.o)
 LIBFT_SRCS = libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c libft/ft_isalnum.c libft/ft_isalpha.c \
             libft/ft_isascii.c libft/ft_isdigit.c libft/ft_isprint.c libft/ft_itoa.c libft/ft_memchr.c \
             libft/ft_memcmp.c libft/ft_memcpy.c libft/ft_memmove.c libft/ft_memset.c libft/ft_putchar_fd.c \
@@ -24,11 +20,6 @@ NAME = pipex
 
 all:$(NAME)
 
-bonus: pipex_bonus
-
-bonus/%.o : bonus/%.c bonus/pipex_bonus.h
-	$(CC) $(CFLAGS) -c $< -I libft/ -o $@
-
 get_next%.o : get_next%.c libft/get_next_line.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -37,10 +28,6 @@ libft/%.o : libft/%.c libft/libft.h
 
 %.o : %.c pipex.h
 	$(CC) $(CFLAGS) -c $< -I libft/ -o $@
-
-
-pipex_bonus: $(BOBJS) $(SHOBJS) libft/libft.a
-	$(CC) $(CFLAGS) $(BOBJS) $(SHOBJS) -I . -I libft/ -L libft/ -lft -o pipex_bonus
 
 $(NAME) : $(OBJS) $(SHOBJS) libft/libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(SHOBJS) -I libft/ -L libft/ -lft -o $(NAME)
@@ -52,7 +39,7 @@ clean:
 	rm -f $(OBJS) $(BOBJS) $(SHOBJS) && cd libft && make clean && cd ..
 
 fclean: clean
-	rm -f pipex pipex_bonus && cd libft && rm -f libft.a && cd ..
+	rm -f pipex && cd libft && rm -f libft.a && cd ..
 
 re: fclean all
 
