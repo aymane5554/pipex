@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:40:58 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/03/01 09:49:18 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:58:08 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,25 @@ void	allocate(char ****cmds_args, char is_here, int argc, char **argv)
 	if (is_here == 0)
 	{
 		*cmds_args = malloc(((argc - 4) + 1) * sizeof(char **));
+		if (!(*cmds_args))
+			(free(*cmds_args), exit(1));
 		while (i < argc - 4)
 		{
 			(*cmds_args)[i] = argv;
 			i++;
 		}
 		(*cmds_args)[argc - 4] = NULL;
+		return ;
 	}
-	else
+	*cmds_args = malloc(((argc - 3) + 1) * sizeof(char **));
+	if (!(*cmds_args))
+		(free(*cmds_args), exit(1));
+	while (i < argc - 3)
 	{
-		*cmds_args = malloc(((argc - 3) + 1) * sizeof(char **));
-		while (i < argc - 3)
-		{
-			(*cmds_args)[i] = argv;
-			i++;
-		}
-		(*cmds_args)[argc - 3] = NULL;
+		(*cmds_args)[i] = argv;
+		i++;
 	}
+	(*cmds_args)[argc - 3] = NULL;
 }
 
 int	cmds_number(char ***cmds_args)

@@ -6,7 +6,7 @@
 /*   By: ayel-arr <ayel-arr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 08:25:36 by ayel-arr          #+#    #+#             */
-/*   Updated: 2025/03/01 09:49:29 by ayel-arr         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:57:54 by ayel-arr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	*get_input(char	**argv)
 		free(tmp2);
 		free(tmp);
 		line = get_next_line(0);
+		if (line == NULL)
+			return (NULL);
 	}
 	free(line);
 	return (input);
@@ -56,6 +58,8 @@ void	execute3(int pfd[2], char ***cmds_args, char **argv)
 	char	*input;
 
 	input = get_input(argv);
+	if (input == NULL)
+		(free_trpl_ptr(cmds_args, 0), exit(1));
 	pipe(pfd2);
 	if (input)
 		write(pfd2[1], input, ft_strlen(input));
